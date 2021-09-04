@@ -6,10 +6,16 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * 
+ * Game representing the Mastermind board game
+ *
+ * @author Anthony
+ *
+ */
 public class Game implements Serializable {
 	/**
 	 * Enumerator representing code pegs of different colors
-	 *
 	 */
 	public enum CodePeg {
 		// Red, Green, Blue, Magenta, Cyan, Yellow
@@ -18,35 +24,29 @@ public class Game implements Serializable {
 
 	/**
 	 * Enumerator representing key pegs of different colors
-	 *
 	 */
 	public enum KeyPeg {
 		Bl, Wh;
 	}
 
-	private static final long serialVersionUID = 2019_12_05L;
+	private static final long serialVersionUID = 2021_09L;
 
 	private final int TOTAL_TURNS = 10;
 	private final int CODE_LENGTH = 4;
 	private Random rand;
-	private int turn; // turn counter
-	private CodePeg[] code; // secret code
-	private List<CodePeg[]> guesses; // track guesses
-	private List<KeyPeg[]> responses; // track responses to guesses
+	private int turn;
+	private CodePeg[] code;
+	private List<CodePeg[]> guesses;
+	private List<KeyPeg[]> responses;
 
 	private boolean isGameOver;
-
 	private boolean gameIsWon;
 
-	/**
-	 * Game class representing the game Mastermind
-	 */
 	public Game() {
 		rand = new Random();
 		initializeGame();
 	}
 
-	// Method to create the list of guesses
 	private List<CodePeg[]> createGuessList() {
 		List<CodePeg[]> guesses = new ArrayList<CodePeg[]>();
 		for (int x = 0; x < TOTAL_TURNS; x++) {
@@ -55,7 +55,6 @@ public class Game implements Serializable {
 		return guesses;
 	}
 
-	// Method to create the list of responses
 	private List<KeyPeg[]> createResponseList() {
 		List<KeyPeg[]> responses = new ArrayList<KeyPeg[]>();
 		for (int x = 0; x < TOTAL_TURNS; x++) {
@@ -64,7 +63,7 @@ public class Game implements Serializable {
 		return responses;
 	}
 
-	// Method to generate a random code
+	// Generate a random code
 	private CodePeg[] generateCode() {
 		CodePeg[] codePegs = CodePeg.values();
 		CodePeg[] code = new CodePeg[CODE_LENGTH];
@@ -74,7 +73,7 @@ public class Game implements Serializable {
 		return code;
 	}
 
-	// Method to generate a response to the current guess
+	// Generate a response to the current guess
 	private KeyPeg[] generateResponse() {
 		KeyPeg[] key = new KeyPeg[4];
 		CodePeg[] codeCopy = code.clone();
@@ -94,7 +93,6 @@ public class Game implements Serializable {
 		return key;
 	}
 
-	// Method to get the current guess
 	private CodePeg[] getCurrentGuess() {
 		return guesses.get(turn);
 	}
@@ -145,16 +143,16 @@ public class Game implements Serializable {
 	public int getTurn() {
 		return turn;
 	}
-	
+
 	/**
 	 * Method to get the remaining turns
-	 * @return
+	 * 
+	 * @return an integer representing the remaining turns
 	 */
 	public int getRemainingTurns() {
 		return TOTAL_TURNS - turn;
 	}
 
-	// Method to initialize a game
 	private void initializeGame() {
 		// With seed set the initial code is CCGB
 		turn = 0;
@@ -177,7 +175,7 @@ public class Game implements Serializable {
 	/**
 	 * Method to check if the game has been won
 	 * 
-	 * @return a boolean true if the game has been won galse otherwise
+	 * @return a boolean true if the game has been won false otherwise
 	 */
 	public boolean isGameWon() {
 		return gameIsWon;
@@ -196,7 +194,7 @@ public class Game implements Serializable {
 
 	/**
 	 * A method that handles guessing and checking if the game has been won or is
-	 * over
+	 * over.
 	 */
 	public void makeGuess() {
 		guesses.set(turn, getCurrentGuess().clone());
@@ -213,14 +211,14 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Method to reset the game
+	 * Reset the game
 	 */
 	public void reset() {
 		initializeGame();
 	}
 
 	/**
-	 * Method to set a peg for the current guess
+	 * Set a peg for the current guess
 	 * 
 	 * @param pos - the position of the peg to set
 	 * @param peg - the color to set this peg to
