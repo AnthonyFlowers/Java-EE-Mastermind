@@ -1,0 +1,127 @@
+html {
+	display: table;
+	margin: auto;
+}
+
+body {
+	display: table-cell;
+    horizontal-align: middle;
+}
+
+.board {
+	background-color: grey;
+}
+
+.codePeg {
+	width: 1em;
+}
+
+.curRow {
+	background-color: white;
+}
+
+table {
+	border-collapse: collapse;
+	border: 10px solid black;
+}
+
+tr.codeRow {
+	border: 1px solid black;
+}
+
+td {
+	text-align: center;
+}
+
+.selectablePegs{
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+}
+
+.codeRow{
+	border-left: 10px solid black;
+	border-right: 10px solid black;
+}
+
+.keyPieces {
+	display: block;
+	width: 123px;
+	border-left: 1px solid black;
+}
+
+td, .R, .G, .B, .M, .C, .Y, .E {
+	padding: 3px;
+	width: 25px;
+	height: 25px;
+}
+
+.R, .G, .B, .M, .C, .Y, .E {
+	border-radius: 15px;
+}
+
+.R {
+	background-color: red;
+	color: red;
+}
+
+.G {
+	background-color: green;
+	color: green;
+}
+
+.B {
+	background-color: blue;
+	color: blue;
+}
+
+.M {
+	background-color: magenta;
+	color: magenta;
+}
+
+.C {
+	background-color: cyan;
+	color: cyan;
+}
+
+.Y {
+	background-color: yellow;
+	color: yellow;
+}
+
+.E {
+	background-color: white;
+	color: white;
+}
+
+.Wh, .Bl {
+	border-radius: 25px;
+	width: 25px;
+	height: 25px;
+}
+
+.Wh {
+	background-color: white;
+	color: white;
+}
+
+.Bl {
+	background-color: black;
+	color: black;
+}
+
+.red {
+	background-color: red;
+}
+
+.green {
+	background-color: green;
+}
+
+.inLine{
+  white-space: nowrap;
+}
+
+.hide{
+	visibility: hidden;
+}
