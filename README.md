@@ -1,2 +1,2 @@
-# Java-EE-Mastermind
-The mastermind board game represented as a Java EE app.
+# Java EE Mastermind
+The mastermind board game represented in a Java EE app.
