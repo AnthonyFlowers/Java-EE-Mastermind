@@ -18,7 +18,6 @@ public class MastermindSessionListener implements HttpSessionListener {
      * Default constructor. 
      */
     public MastermindSessionListener() {
-        // TODO Auto-generated constructor stub
     }
 
 	/**

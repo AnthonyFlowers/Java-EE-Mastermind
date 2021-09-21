@@ -18,8 +18,8 @@ public class Game implements Serializable {
 	 * Enumerator representing code pegs of different colors
 	 */
 	public enum CodePeg {
-		// Red, Green, Blue, Magenta, Cyan, Yellow
-		R, G, B, M, C, Y;
+		// Red, Green, Blue, Magenta, Cyan, Yellow, Empty
+		R, G, B, M, C, Y, E;
 	}
 
 	/**
@@ -63,7 +63,6 @@ public class Game implements Serializable {
 		return responses;
 	}
 
-	// Generate a random code
 	private CodePeg[] generateCode() {
 		CodePeg[] codePegs = CodePeg.values();
 		CodePeg[] code = new CodePeg[CODE_LENGTH];
@@ -73,7 +72,6 @@ public class Game implements Serializable {
 		return code;
 	}
 
-	// Generate a response to the current guess
 	private KeyPeg[] generateResponse() {
 		KeyPeg[] key = new KeyPeg[4];
 		CodePeg[] codeCopy = code.clone();
@@ -89,6 +87,14 @@ public class Game implements Serializable {
 			if (key[y] == null && isPegInCode(codeCopy, getCurrentGuess()[y])) {
 				key[y] = KeyPeg.Wh;
 			}
+		}
+		// Randomizing key array
+		// https://www.delftstack.com/howto/java/shuffle-an-array-in-java/
+		for (int i = key.length - 1; i > 0; i--) {
+			int j = rand.nextInt(i+1);
+			KeyPeg temp = key[i];
+			key[i] = key[j];
+			key[j] = temp;
 		}
 		return key;
 	}
@@ -154,7 +160,6 @@ public class Game implements Serializable {
 	}
 
 	private void initializeGame() {
-		// With seed set the initial code is CCGB
 		turn = 0;
 		code = generateCode();
 		guesses = createGuessList();

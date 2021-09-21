@@ -5,58 +5,82 @@ html {
 
 body {
 	display: table-cell;
-    horizontal-align: middle;
+	margin: auto;
+}
+
+.title {
+	text-align: center;
+}
+
+.btnReset {
+	color: black;
+	background-color: #cecdae;
+	border-radius: 20px;
+	font-size: 20px;
+	padding: 5px;
+	width: 100%;
+	font-weight: bold;
+}
+
+.btnGuess {
+	padding: 8px;
+	border-radius: 30px;
+	background-color: #cecdae;
+	font-weight: bold
+}
+
+.win, .lose {
+	border-radius: 15px;
+	padding: 15px;
 }
 
 .board {
 	background-color: grey;
 }
 
-.codePeg {
-	width: 1em;
+.R, .G, .B, .M, .C, .Y, .E {
+	width: 25px;
+	height: 25px;
+	border-radius: 25px;
+	text-align: center;
+	padding: 5px;
+	border-style: solid;
+	border-color: black;
+	border-width: thin;
 }
 
 .curRow {
-	background-color: white;
+	background-color: #c0c0c0;
 }
 
-table {
-	border-collapse: collapse;
+div.inactiveRow {
+	pointer-events: none;
+}
+
+.board {
 	border: 10px solid black;
+	border-radius: 20px;
+	padding: 10px;
 }
 
-tr.codeRow {
-	border: 1px solid black;
-}
-
-td {
-	text-align: center;
-}
-
-.selectablePegs{
+.selectablePegs {
 	border-left: 1px solid black;
 	border-right: 1px solid black;
 }
 
-.codeRow{
-	border-left: 10px solid black;
-	border-right: 10px solid black;
+.codeRow {
+	border: 2px solid black;
+	padding: 3px;
+	border-radius: 10px;
+}
+
+.codeSect {
+	padding: 4px;
 }
 
 .keyPieces {
 	display: block;
-	width: 123px;
-	border-left: 1px solid black;
-}
-
-td, .R, .G, .B, .M, .C, .Y, .E {
-	padding: 3px;
-	width: 25px;
-	height: 25px;
-}
-
-.R, .G, .B, .M, .C, .Y, .E {
-	border-radius: 15px;
+	width: 140px;
 }
 
 .R {
@@ -96,8 +120,9 @@ td, .R, .G, .B, .M, .C, .Y, .E {
 
 .Wh, .Bl {
 	border-radius: 25px;
-	width: 25px;
+	width: 23px;
 	height: 25px;
+	text-align: center;
 }
 
 .Wh {
@@ -118,10 +143,59 @@ td, .R, .G, .B, .M, .C, .Y, .E {
 	background-color: green;
 }
 
-.inLine{
-  white-space: nowrap;
+.inLine {
+	white-space: nowrap;
+	display: inline-block;
 }
 
-.hide{
+.hide {
 	visibility: hidden;
+}
+
+/* Custom dropdown https://www.w3schools.com/howto/howto_js_dropdown.asp */
+/* Dropdown Button */
+.dropbtn {
+	cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f1f1f1;
+	border-radius: 30px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	text-align: center;
+}
+
+.dropdown-content input {
+	cursor: pointer;
+}
+
+.textMode {
+	color: black;
+	background-color: white;
+}
+
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+	display: block;
+}
+
+.blink {
+	animation: blinker 1s linear 5;
+}
+
+@keyframes blinker{
+	50% {
+		opacity: 0;
+	}
 }

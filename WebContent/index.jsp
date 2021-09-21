@@ -3,79 +3,109 @@
 <html>
 <head>
 <title>Mastermind</title>
-<link rel="stylesheet" href="css/mastermind.css" />
+<link rel="stylesheet" href="css/mastermind.css?uncache=17"/>
+<script src="scripts/mastermind.js?uncache=1"></script>
 </head>
 <body>
-	<h1>Mastermind</h1>
-
-	<c:choose>
-		<c:when test="${game.isGameOver() && !game.isGameWon()}">
-			<h2 class="red">You Lost :(</h2>
-		</c:when>
+	<h1 class="title">Mastermind</h1>
+	<div class="board">
+		<c:choose>
 		<c:when test="${game.isGameWon()}">
-			<h2 class="green">You Win!</h2>
+			<h2 class="title win green blink">You Win!</h2>
+		</c:when>
+		<c:when test="${game.isGameOver()}">
+			<h2 class="title lose red">You Lost :(</h2>
 		</c:when>
 		<c:otherwise>
-			<h2>Turn: ${game.getTurn()+1 }</h2>
-			<span>Remaining Turns: ${game.getRemainingTurns()}</span>
+			<h3 class="title">Remaining Turns: ${game.getRemainingTurns()}</h3>
 		</c:otherwise>
-	</c:choose>
-	<table class="board">
-		<!-- Create rows for each guess -->
+		</c:choose>
 		<c:forEach var="curRow" items="${game.guesses}" varStatus="count">
-			<tr class="codeRow ${game.getTurn() == count.index ? 'curRow' : ''}">
-				<c:forEach var="codePiece" items="${curRow}">
-					<td class="guessPeg"><input type="submit"
-						class="${codePiece == null ? 'E' : codePiece}"
-						value="${codePiece == null ? 'E' : codePiece}" disabled></td>
-				</c:forEach>
-				<td class="keyPieces inLine"><c:forEach var="keyPiece"
-						items="${game.getResponseRow(count.index)}">
-						<c:choose>
-							<c:when test="${keyPiece != null}">
-								<input type="submit" class="${keyPiece}" value="O" disabled>
-							</c:when>
-
-						</c:choose>
-
-					</c:forEach></td>
-			</tr>
-		</c:forEach>
-		<tr class="codeRow">
-			<c:forEach var="codePos" begin="0" end="3" step="1">
-				<td class="selectablePegs"><c:forEach var="codePeg"
-						items="${game.getPegs()}">
-						<form method="POST" action="placePeg">
-							<input name="peg" type="submit" class="${codePeg}"
-								value="${codePeg}" ${game.isGameOver() ? 'disabled' :''}><input
-								name="color" type="hidden" value="${codePeg}"> <input
-								name="codePos" type="hidden" value="${codePos}">
-						</form>
-					</c:forEach>
-					<form method="POST" action="placePeg">
-						<input name="peg" type="submit" class="E" value="E"
-							${game.isGameOver() ? 'disabled' :''}><input name="color"
-							type="hidden" value="E"> <input name="codePos"
-							type="hidden" value="${codePos}">
-					</form></td>
-
+		<div class="boardRow">
+		<c:choose>
+		<c:when test="${game.turn == count.index && !game.isGameOver()}">
+		<div class="codeSect inLine">
+		<form method="post" action="makeGuess">
+		<div class="codeRow inLine${game.turn == count.index ? ' curRow' : '' }${pegError ? ' blink':''}">
+          <div class="dropdown">
+            <input id="guessPegOne" name="guessPegOne" type="text" onclick="guessOneDropdown()" value="E" class="dropbtn guessPeg E">
+            <div id="guessOne" class="dropdown-content">
+              <input type="text" class="R${textMode ? ' textMode': '' }" value="R" onclick="guessPegGuess('One','R')"><br>
+              <input type="text" class="G${textMode ? ' textMode': '' }" value="G" onclick="guessPegGuess('One','G')"><br>
+              <input type="text" class="B${textMode ? ' textMode': '' }" value="B" onclick="guessPegGuess('One','B')"><br>
+              <input type="text" class="M${textMode ? ' textMode': '' }" value="M" onclick="guessPegGuess('One','M')"><br>
+              <input type="text" class="C${textMode ? ' textMode': '' }" value="C" onclick="guessPegGuess('One','C')"><br>
+              <input type="text" class="Y${textMode ? ' textMode': '' }" value="Y" onclick="guessPegGuess('One','Y')"><br>
+              <input type="text" class="E${textMode ? ' textMode': '' }" value="E" onclick="guessPegGuess('One','E')">
+            </div>
+          </div>
+          <div class="dropdown">
+            <input id="guessPegTwo" name="guessPegTwo" type="text" onclick="guessTwoDropdown()" value="E" class="dropbtn guessPeg E">
+            <div id="guessTwo" class="dropdown-content">
+              <input type="text" class="R${textMode ? ' textMode': '' }" value="R" onclick="guessPegGuess('Two','R')"><br>
+              <input type="text" class="G${textMode ? ' textMode': '' }" value="G" onclick="guessPegGuess('Two','G')"><br>
+              <input type="text" class="B${textMode ? ' textMode': '' }" value="B" onclick="guessPegGuess('Two','B')"><br>
+              <input type="text" class="M${textMode ? ' textMode': '' }" value="M" onclick="guessPegGuess('Two','M')"><br>
+              <input type="text" class="C${textMode ? ' textMode': '' }" value="C" onclick="guessPegGuess('Two','C')"><br>
+              <input type="text" class="Y${textMode ? ' textMode': '' }" value="Y" onclick="guessPegGuess('Two','Y')"><br>
+              <input type="text" class="E${textMode ? ' textMode': '' }" value="E" onclick="guessPegGuess('Two','E')">
+            </div>
+          </div>
+          <div class="dropdown">
+            <input id="guessPegThree" name="guessPegThree" type="text" onclick="guessThreeDropdown()" value="E" class="dropbtn guessPeg E">
+            <div id="guessThree" class="dropdown-content">
+              <input type="text" class="R${textMode ? ' textMode': '' }" value="R" onclick="guessPegGuess('Three','R')"><br>
+              <input type="text" class="G${textMode ? ' textMode': '' }" value="G" onclick="guessPegGuess('Three','G')"><br>
+              <input type="text" class="B${textMode ? ' textMode': '' }" value="B" onclick="guessPegGuess('Three','B')"><br>
+              <input type="text" class="M${textMode ? ' textMode': '' }" value="M" onclick="guessPegGuess('Three','M')"><br>
+              <input type="text" class="C${textMode ? ' textMode': '' }" value="C" onclick="guessPegGuess('Three','C')"><br>
+              <input type="text" class="Y${textMode ? ' textMode': '' }" value="Y" onclick="guessPegGuess('Three','Y')"><br>
+              <input type="text" class="E${textMode ? ' textMode': '' }" value="E" onclick="guessPegGuess('Three','E')">
+            </div>
+          </div>
+          <div class="dropdown">
+            <input id="guessPegFour" name="guessPegFour" type="text" onclick="guessFourDropdown()" value="E" class="dropbtn guessPeg E">
+            <div id="guessFour" class="dropdown-content">
+              <input type="text" class="R${textMode ? ' textMode': '' }" value="R" onclick="guessPegGuess('Four','R')"><br>
+              <input type="text" class="G${textMode ? ' textMode': '' }" value="G" onclick="guessPegGuess('Four','G')"><br>
+              <input type="text" class="B${textMode ? ' textMode': '' }" value="B" onclick="guessPegGuess('Four','B')"><br>
+              <input type="text" class="M${textMode ? ' textMode': '' }" value="M" onclick="guessPegGuess('Four','M')"><br>
+              <input type="text" class="C${textMode ? ' textMode': '' }" value="C" onclick="guessPegGuess('Four','C')"><br>
+              <input type="text" class="Y${textMode ? ' textMode': '' }" value="Y" onclick="guessPegGuess('Four','Y')"><br>
+              <input type="text" class="E${textMode ? ' textMode': '' }" value="E" onclick="guessPegGuess('Four','E')">
+            </div>
+          </div>
+          </div>
+          <input class="btnGuess" type="submit" value="Make Guess">
+        </form>
+        </div>
+		</c:when>
+		<c:otherwise>
+		<div class="codeSect inLine">
+		<div class="codeRow inactiveRow">
+			<c:forEach var="codePiece" items="${curRow}">
+			<input class="dropbtn guessPeg ${codePiece == null ? 'E' : codePiece}${textMode ? ' textMode': '' }" value="${codePiece == null ? 'E' : codePiece}">
 			</c:forEach>
-			<td></td>
-		</tr>
-
-		<tr>
-			<td colspan="5">
-				<form method="POST" action="makeGuess">
-					<input type="submit" value="Make Guess"
-						${game.isGameOver() ? 'disabled' :''}> <input
-						type="hidden" name="guess" value="guess">
-				</form>
-				<form method="POST" action="resetGame">
-					<input type="submit" value="Reset Game"> <input
-						type="hidden" name="reset" value="reset">
-				</form>
-			</td>
-		</tr>
-	</table>
+		</div>
+		</div>
+		<div class="keyPieces inLine">
+			<c:forEach var="keyPiece" items="${game.getResponseRow(count.index)}">
+			<c:choose>
+			<c:when test="${keyPiece != null}">
+			<input type="text" class="inLine ${keyPiece}${textMode ? ' textMode': '' }" value="${keyPiece}" disabled>
+			</c:when>
+			</c:choose>
+			</c:forEach>
+		</div>
+		</c:otherwise>
+		</c:choose>
+		
+		</div>
+		</c:forEach>
+		<br>
+		<div>
+		<a href="resetGame"><input class="btnReset" type="submit" value="Reset"></a>
+		</div>
+	</div>
 </body>
 </html>
