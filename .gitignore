@@ -27,3 +27,4 @@ hs_err_pid*
 .settings/
 .tern-project
 target/
+html_testing/
