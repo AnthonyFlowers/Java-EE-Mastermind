@@ -7,22 +7,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.anthony.model.Game;
-import com.anthony.model.Game.CodePeg;
-
 /**
- * Servlet implementation class PlacePegServlet
+ * Servlet implementation class TextModeServlet
  */
-@WebServlet("/placePeg")
-public class PlacePegServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@WebServlet("/textMode")
+public class TextModeServlet extends HttpServlet {
+	private static final long serialVersionUID = 2021_09_21L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public PlacePegServlet() {
+	public TextModeServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -31,19 +27,12 @@ public class PlacePegServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String peg = request.getParameter("color");
-		String pos = request.getParameter("codePos");
-		
-		CodePeg selectedPeg = peg.matches("[RGBMCY]")
-				? CodePeg.valueOf(request.getParameter("color"))
-				: null;
-		Integer codePos = pos.matches("[0-3]") ? Integer.parseInt(request.getParameter("codePos")) : null;
-
-		if (codePos != null && (selectedPeg != null || peg.equals("E"))) {
-			Game g = (Game) request.getSession().getAttribute("game");
-			g.setCodePeg(codePos, selectedPeg);
+		if (request.getSession().getAttribute("textMode") != null
+				&& (boolean) request.getSession().getAttribute("textMode")) {
+			request.getSession().setAttribute("textMode", false);
+		} else {
+			request.getSession().setAttribute("textMode", true);
 		}
-		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
@@ -53,7 +42,6 @@ public class PlacePegServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

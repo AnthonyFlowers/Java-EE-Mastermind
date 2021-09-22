@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/MastermindServlet")
 public class MastermindServlet extends HttpServlet {
-	private static final long serialVersionUID = 2019_12_07L;
+	private static final long serialVersionUID = 2021_09L;
 	
 	/**
 	 * @see HttpServlet#HttpServlet()
