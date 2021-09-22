@@ -3,8 +3,8 @@
 <html>
 <head>
 <title>Mastermind</title>
-<link rel="stylesheet" href="css/mastermind.css?uncache=19"/>
-<script src="scripts/mastermind.js?uncache=1"></script>
+<link rel="stylesheet" href="css/mastermind.css"/>
+<script src="scripts/mastermind.js"></script>
 </head>
 <body>
 	<h1 class="title">Mastermind</h1>
