@@ -3,8 +3,8 @@
 <html>
 <head>
 <title>Mastermind</title>
-<link rel="stylesheet" href="css/mastermind.css?nocache=10"/>
-<script src="scripts/mastermind.js?nocache=6"></script>
+<link rel="stylesheet" href="css/mastermind.css"/>
+<script src="scripts/mastermind.js"></script>
 </head>
 <body>
 	<div class="container">
