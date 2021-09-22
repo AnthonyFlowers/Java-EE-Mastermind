@@ -4,20 +4,20 @@
 toggle between hiding and showing the dropdown content */
 
 function guessOneDropdown(){
-  document.getElementById("guessOne").classList.toggle("show");
+  document.getElementById('guessOne').classList.toggle('show');
 }
 function guessTwoDropdown(){
-  document.getElementById("guessTwo").classList.toggle("show");
+  document.getElementById('guessTwo').classList.toggle('show');
 }
 function guessThreeDropdown(){
-  document.getElementById("guessThree").classList.toggle("show");
+  document.getElementById('guessThree').classList.toggle('show');
 }
 function guessFourDropdown(){
-  document.getElementById("guessFour").classList.toggle("show");
+  document.getElementById('guessFour').classList.toggle('show');
 }
 
 function guessPegGuess(peg, color){
-  var el = document.getElementById("guessPeg" + peg);
+  var el = document.getElementById('guessPeg' + peg);
   el.classList.remove(el.value);
   el.classList.add(color);
   el.value = color;
@@ -27,7 +27,7 @@ function guessPegGuess(peg, color){
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var dropdowns = document.getElementsByClassName('dropdown-content');
     var i;
     for (i = 0; i < dropdowns.length; i++) {
       var openDropdown = dropdowns[i];
@@ -36,4 +36,15 @@ window.onclick = function(event) {
       }
     }
   }
+}
+
+function showHelp(){
+	var helpElement = document.getElementById('helpSection');
+	if (helpElement.style.opacity == 0){
+		helpElement.style.opacity = 1;
+		helpElement.style.pointerEvents = 'unset';
+	} else {
+		helpElement.style.opacity = 0;
+		helpElement.style.pointerEvents = 'none';
+	}
 }

@@ -91,7 +91,7 @@ public class Game implements Serializable {
 		// Randomize the key array so the key pegs are not in order.
 		// https://www.delftstack.com/howto/java/shuffle-an-array-in-java/
 		for (int i = key.length - 1; i > 0; i--) {
-			int j = rand.nextInt(i+1);
+			int j = rand.nextInt(i + 1);
 			KeyPeg temp = key[i];
 			key[i] = key[j];
 			key[j] = temp;
@@ -148,6 +148,15 @@ public class Game implements Serializable {
 	 */
 	public int getTurn() {
 		return turn;
+	}
+
+	/**
+	 * Get the current game code
+	 * 
+	 * @return a list containing the current code
+	 */
+	public CodePeg[] getCode() {
+		return code;
 	}
 
 	/**

@@ -3,16 +3,18 @@ html {
 	margin: auto;
 }
 
-body {
-	display: table-cell;
-	margin: auto;
+.container {
+	width: 365px;
+	position: relative;
+	border: 10px solid black;
+	border-radius: 20px;
 }
 
 .title {
 	text-align: center;
 }
 
-.btnReset, .btnTextMode {
+.btnReset, .btnTextMode, .btnHelp {
 	color: black;
 	background-color: #cecdae;
 	border-radius: 20px;
@@ -29,6 +31,22 @@ body {
 	font-weight: bold
 }
 
+.btnHelp {
+	text-align: center;
+}
+
+#helpSection{
+    position: absolute;
+    background-color: white;
+    border-top: 4px solid black;
+    border-bottom: 4px solid black;
+    z-index: 2;
+    padding: 15px;
+	opacity: 0;
+    transition: opacity .5s ease-in;
+    pointer-events: none;
+}
+
 .win, .lose {
 	border-radius: 15px;
 	padding: 15px;
@@ -36,9 +54,12 @@ body {
 
 .board {
 	background-color: grey;
+	border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+	padding: 10px;	
 }
 
-.R, .G, .B, .M, .C, .Y, .E {
+.R, .G, .B, .M, .C, .Y, .E, .Em {
 	width: 25px;
 	height: 25px;
 	border-radius: 25px;
@@ -57,12 +78,6 @@ div.inactiveRow {
 	pointer-events: none;
 }
 
-.board {
-	border: 10px solid black;
-	border-radius: 20px;
-	padding: 10px;
-}
-
 .selectablePegs {
 	border-left: 1px solid black;
 	border-right: 1px solid black;
@@ -76,6 +91,10 @@ div.inactiveRow {
 
 .codeSect {
 	padding: 4px;
+}
+
+.hiddenCode {
+	background-color: #2c2c2c;
 }
 
 .keyPieces {

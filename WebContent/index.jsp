@@ -3,11 +3,40 @@
 <html>
 <head>
 <title>Mastermind</title>
-<link rel="stylesheet" href="css/mastermind.css"/>
-<script src="scripts/mastermind.js"></script>
+<link rel="stylesheet" href="css/mastermind.css?nocache=10"/>
+<script src="scripts/mastermind.js?nocache=6"></script>
 </head>
 <body>
+	<div class="container">
 	<h1 class="title">Mastermind</h1>
+	<div id="helpSection" onClick="showHelp()">
+		<h3>How to play</h3>
+		<p>
+			This is the game Mastermind. A code has been chosen and you are to guess it. Each row 
+			on the board represents a guess made. The current guess has a lighter background color.
+		</p>
+		<p>
+			Click on each circle/code piece and select the color you would like to guess in that position.
+			After you have chosen each code piece for your guess, click the "Make Guess" button. 
+			You will receive feedback based on your guess if your code matches or partially matches. 
+		</p>
+		<p>
+			To the right of your guess there will be black and white circles/key pegs that represent
+			a correctly guessed color. A black key peg shows you have a correctly colored code peg in 
+			the correct position. A white key peg shows you have a correctly colored code peg in an 
+			incorrect position. After each turn use the the previous feedback to improve your next guess.
+		</p>
+		<p>Click the "Reset" button to reset the game and get another code.</p>
+		<p>
+			Click the "Text Mode" button to enable text mode. Text mode shows text on each peg 
+			corresponding to its color.
+		</p>
+		<h3>Links</h3>
+		<p>
+			Project <a href="https://github.com/AnthonyFlowers/Mastermind">GitHub</a><br>
+			Mastermind <a href="https://wikipedia.org/wiki/Mastermind_(board_game)">Wiki</a>
+		</p>
+	</div>
 	<div class="board">
 		<c:choose>
 		<c:when test="${game.isGameWon()}">
@@ -102,11 +131,32 @@
 		
 		</div>
 		</c:forEach>
+		<div class="boardRow">
+		<div class="codeSect inLine">
+		<div class="codeRow inactiveRow hiddenCode">
+		<c:choose>
+		<c:when test="${game.isGameOver()}">
+			<c:forEach var="codePiece" items="${game.getCode()}">
+			<input class="dropbtn guessPeg ${codePiece == null ? 'E' : codePiece}${textMode ? ' textMode': '' }" value="${codePiece == null ? 'E' : codePiece}">
+			</c:forEach>
+		</c:when>
+		<c:otherwise>
+			<c:forEach var="codePiece" items="${game.getCode()}">
+			<input class="dropbtn guessPeg hiddenCode Em${textMode ? ' textMode': '' }">
+			</c:forEach>
+		</c:otherwise>
+		</c:choose>
+		</div>
+		<div class="keyPieces inLine"></div>
+		</div>
+		</div>
 		<br>
 		<div>
 		<a href="resetGame"><input class="btnReset inLine" type="submit" value="Reset"></a>
 		<a href="textMode"><input class="btnTextMode inLine" type="submit" value="Text Mode"></a>
+		<a href="#"><input class="btnHelp" type="submit" value="Help" onClick="showHelp()"></a>
 		</div>
+	</div>
 	</div>
 </body>
 </html>
