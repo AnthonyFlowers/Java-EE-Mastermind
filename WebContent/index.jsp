@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>Mastermind</title>
-<link rel="stylesheet" href="css/mastermind.css?uncache=17"/>
+<link rel="stylesheet" href="css/mastermind.css?uncache=19"/>
 <script src="scripts/mastermind.js?uncache=1"></script>
 </head>
 <body>
@@ -28,7 +28,7 @@
 		<form method="post" action="makeGuess">
 		<div class="codeRow inLine${game.turn == count.index ? ' curRow' : '' }${pegError ? ' blink':''}">
           <div class="dropdown">
-            <input id="guessPegOne" name="guessPegOne" type="text" onclick="guessOneDropdown()" value="E" class="dropbtn guessPeg E">
+            <input id="guessPegOne" name="guessPegOne" type="text" onclick="guessOneDropdown()" value="E" class="dropbtn guessPeg E${textMode ? ' textMode': '' }">
             <div id="guessOne" class="dropdown-content">
               <input type="text" class="R${textMode ? ' textMode': '' }" value="R" onclick="guessPegGuess('One','R')"><br>
               <input type="text" class="G${textMode ? ' textMode': '' }" value="G" onclick="guessPegGuess('One','G')"><br>
@@ -40,7 +40,7 @@
             </div>
           </div>
           <div class="dropdown">
-            <input id="guessPegTwo" name="guessPegTwo" type="text" onclick="guessTwoDropdown()" value="E" class="dropbtn guessPeg E">
+            <input id="guessPegTwo" name="guessPegTwo" type="text" onclick="guessTwoDropdown()" value="E" class="dropbtn guessPeg E${textMode ? ' textMode': '' }">
             <div id="guessTwo" class="dropdown-content">
               <input type="text" class="R${textMode ? ' textMode': '' }" value="R" onclick="guessPegGuess('Two','R')"><br>
               <input type="text" class="G${textMode ? ' textMode': '' }" value="G" onclick="guessPegGuess('Two','G')"><br>
@@ -52,7 +52,7 @@
             </div>
           </div>
           <div class="dropdown">
-            <input id="guessPegThree" name="guessPegThree" type="text" onclick="guessThreeDropdown()" value="E" class="dropbtn guessPeg E">
+            <input id="guessPegThree" name="guessPegThree" type="text" onclick="guessThreeDropdown()" value="E" class="dropbtn guessPeg E${textMode ? ' textMode': '' }">
             <div id="guessThree" class="dropdown-content">
               <input type="text" class="R${textMode ? ' textMode': '' }" value="R" onclick="guessPegGuess('Three','R')"><br>
               <input type="text" class="G${textMode ? ' textMode': '' }" value="G" onclick="guessPegGuess('Three','G')"><br>
@@ -64,7 +64,7 @@
             </div>
           </div>
           <div class="dropdown">
-            <input id="guessPegFour" name="guessPegFour" type="text" onclick="guessFourDropdown()" value="E" class="dropbtn guessPeg E">
+            <input id="guessPegFour" name="guessPegFour" type="text" onclick="guessFourDropdown()" value="E" class="dropbtn guessPeg E${textMode ? ' textMode': '' }">
             <div id="guessFour" class="dropdown-content">
               <input type="text" class="R${textMode ? ' textMode': '' }" value="R" onclick="guessPegGuess('Four','R')"><br>
               <input type="text" class="G${textMode ? ' textMode': '' }" value="G" onclick="guessPegGuess('Four','G')"><br>
@@ -104,7 +104,8 @@
 		</c:forEach>
 		<br>
 		<div>
-		<a href="resetGame"><input class="btnReset" type="submit" value="Reset"></a>
+		<a href="resetGame"><input class="btnReset inLine" type="submit" value="Reset"></a>
+		<a href="textMode"><input class="btnTextMode inLine" type="submit" value="Text Mode"></a>
 		</div>
 	</div>
 </body>

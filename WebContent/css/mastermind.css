@@ -12,13 +12,13 @@ body {
 	text-align: center;
 }
 
-.btnReset {
+.btnReset, .btnTextMode {
 	color: black;
 	background-color: #cecdae;
 	border-radius: 20px;
 	font-size: 20px;
 	padding: 5px;
-	width: 100%;
+	width: 49%;
 	font-weight: bold;
 }
 
@@ -181,7 +181,10 @@ div.inactiveRow {
 
 .textMode {
 	color: black;
-	background-color: white;
+}
+
+.textMode.Bl{
+	color: white;
 }
 
 
