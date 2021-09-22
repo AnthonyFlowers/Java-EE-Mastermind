@@ -183,7 +183,7 @@ div.inactiveRow {
 	color: black;
 }
 
-.textMode.Bl{
+.textMode.Bl, .textMode.B{
 	color: white;
 }
 

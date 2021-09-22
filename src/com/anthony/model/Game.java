@@ -88,7 +88,7 @@ public class Game implements Serializable {
 				key[y] = KeyPeg.Wh;
 			}
 		}
-		// Randomizing key array
+		// Randomize the key array so the key pegs are not in order.
 		// https://www.delftstack.com/howto/java/shuffle-an-array-in-java/
 		for (int i = key.length - 1; i > 0; i--) {
 			int j = rand.nextInt(i+1);
