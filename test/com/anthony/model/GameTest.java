@@ -2,26 +2,24 @@ package com.anthony.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Arrays;
-
 import org.junit.jupiter.api.Test;
 
-import com.anthony.model.Game.CodePeg;
-
 class GameTest {
-
-	void print(String string) {
-		System.out.println(string);
-	}
 	
-	void print(CodePeg[] array) {
-		System.out.println(Arrays.toString(array));
+	@Test
+	void testInitialization() {
+		Game g = new Game();
+		g.getCode();
 	}
 
 	@Test
 	void testGenerateCodes() {
 		Game g = new Game();
-		assertEquals(10, g.getGuesses().size());
+		String[] code = g.getCode();
+		assertEquals(4, code.length);
+		for(String peg: code) {
+			assertTrue(peg.matches("^[RGBMCYE]$"));
+		}
 	}
 	
 	@Test
@@ -35,13 +33,9 @@ class GameTest {
 	@Test
 	void testMakeCorrectGuess() {
 		Game g = new Game();
-		CodePeg[] code = g.getCode();
+		String[] code = g.getCode();
 		assertEquals(4, code.length);
-		g.setCodePeg(0, code[0]);
-		g.setCodePeg(1, code[1]);
-		g.setCodePeg(2, code[2]);
-		g.setCodePeg(3, code[3]);
-		g.makeGuess();
+		g.makeGuess(code);
 		assertTrue(g.isGameOver());
 		assertTrue(g.isGameWon());
 	}

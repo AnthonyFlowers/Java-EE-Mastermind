@@ -47,6 +47,15 @@ public class Game implements Serializable {
 		initializeGame();
 	}
 
+	private void initializeGame() {
+		turn = 0;
+		code = generateCode();
+		guesses = createGuessList();
+		responses = createResponseList();
+		isGameOver = false;
+		gameIsWon = false;
+	}
+
 	private List<CodePeg[]> createGuessList() {
 		List<CodePeg[]> guesses = new ArrayList<CodePeg[]>();
 		for (int x = 0; x < TOTAL_TURNS; x++) {
@@ -155,8 +164,12 @@ public class Game implements Serializable {
 	 * 
 	 * @return a list containing the current code
 	 */
-	public CodePeg[] getCode() {
-		return code;
+	public String[] getCode() {
+		String[] stringCode = new String[code.length];
+		for (int p = 0; p < code.length; p++) {
+			stringCode[p] = code[p].toString();
+		}
+		return stringCode;
 	}
 
 	/**
@@ -166,15 +179,6 @@ public class Game implements Serializable {
 	 */
 	public int getRemainingTurns() {
 		return TOTAL_TURNS - turn;
-	}
-
-	private void initializeGame() {
-		turn = 0;
-		code = generateCode();
-		guesses = createGuessList();
-		responses = createResponseList();
-		isGameOver = false;
-		gameIsWon = false;
 	}
 
 	/**
@@ -207,10 +211,21 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * A method that handles guessing and checking if the game has been won or is
-	 * over.
+	 * Makes guess based on the list of pegs
+	 * 
+	 * @param codePegs - String[] of codePegs the user wants to guess
 	 */
-	public void makeGuess() {
+	public void makeGuess(String[] codePegs) {
+		for (int i = 0; i < code.length; i++) {
+			getCurrentGuess()[i] = CodePeg.valueOf(codePegs[i]);
+		}
+		makeGuess();
+	}
+
+	/**
+	 * Submit the users current guess checking if the game has been won or is over.
+	 */
+	private void makeGuess() {
 		guesses.set(turn, getCurrentGuess().clone());
 		responses.set(turn, generateResponse());
 		if (Arrays.equals(this.code, getCurrentGuess())) {
@@ -230,15 +245,4 @@ public class Game implements Serializable {
 	public void reset() {
 		initializeGame();
 	}
-
-	/**
-	 * Set a peg for the current guess
-	 * 
-	 * @param pos - the position of the peg to set
-	 * @param peg - the color to set this peg to
-	 */
-	public void setCodePeg(int pos, CodePeg peg) {
-		getCurrentGuess()[pos] = peg;
-	}
-
 }
