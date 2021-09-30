@@ -14,7 +14,7 @@ import com.anthony.model.Game;
  */
 @WebServlet("/resetGame")
 public class ResetGameServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2021_09_29L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

@@ -45,7 +45,4 @@ class GameTest {
 		Game g = new Game();
 		
 	}
-	
-	
-
 }

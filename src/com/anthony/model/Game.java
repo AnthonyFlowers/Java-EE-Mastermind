@@ -1,10 +1,10 @@
 package com.anthony.model;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Random;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 /**
  * 
@@ -29,7 +29,7 @@ public class Game implements Serializable {
 		Bl, Wh;
 	}
 
-	private static final long serialVersionUID = 2021_09L;
+	private static final long serialVersionUID = 2021_09_29L;
 
 	private final int TOTAL_TURNS = 10;
 	private final int CODE_LENGTH = 4;
@@ -40,7 +40,7 @@ public class Game implements Serializable {
 	private List<KeyPeg[]> responses;
 
 	private boolean isGameOver;
-	private boolean gameIsWon;
+	private boolean isGameWon;
 
 	public Game() {
 		rand = new Random();
@@ -53,7 +53,7 @@ public class Game implements Serializable {
 		guesses = createGuessList();
 		responses = createResponseList();
 		isGameOver = false;
-		gameIsWon = false;
+		isGameWon = false;
 	}
 
 	private List<CodePeg[]> createGuessList() {
@@ -172,33 +172,6 @@ public class Game implements Serializable {
 		return stringCode;
 	}
 
-	/**
-	 * Method to get the remaining turns
-	 * 
-	 * @return an integer representing the remaining turns
-	 */
-	public int getRemainingTurns() {
-		return TOTAL_TURNS - turn;
-	}
-
-	/**
-	 * Method to check if the game is over
-	 * 
-	 * @return a boolean true if the game is over false otherwise
-	 */
-	public boolean isGameOver() {
-		return isGameOver;
-	}
-
-	/**
-	 * Method to check if the game has been won
-	 * 
-	 * @return a boolean true if the game has been won false otherwise
-	 */
-	public boolean isGameWon() {
-		return gameIsWon;
-	}
-
 	// method to check if the passed peg is in the passed code
 	private boolean isPegInCode(CodePeg[] code, CodePeg peg) {
 		for (int x = 0; x < CODE_LENGTH; x++) {
@@ -230,13 +203,40 @@ public class Game implements Serializable {
 		responses.set(turn, generateResponse());
 		if (Arrays.equals(this.code, getCurrentGuess())) {
 			isGameOver = true;
-			gameIsWon = true;
+			isGameWon = true;
 		}
 
 		turn++; // Increment turn count
 		if (turn >= TOTAL_TURNS) {
 			isGameOver = true;
 		}
+	}
+
+	/**
+	 * Method to get the remaining turns
+	 * 
+	 * @return an integer representing the remaining turns
+	 */
+	public int getRemainingTurns() {
+		return TOTAL_TURNS - turn;
+	}
+
+	/**
+	 * Method to check if the game is over
+	 * 
+	 * @return a boolean true if the game is over false otherwise
+	 */
+	public boolean isGameOver() {
+		return isGameOver;
+	}
+
+	/**
+	 * Method to check if the game has been won
+	 * 
+	 * @return a boolean true if the game has been won false otherwise
+	 */
+	public boolean isGameWon() {
+		return isGameWon;
 	}
 
 	/**
