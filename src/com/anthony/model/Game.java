@@ -1,10 +1,10 @@
 package com.anthony.model;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Random;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 /**
  * 
@@ -29,7 +29,7 @@ public class Game implements Serializable {
 		Bl, Wh;
 	}
 
-	private static final long serialVersionUID = 2021_09L;
+	private static final long serialVersionUID = 2021_09_29L;
 
 	private final int TOTAL_TURNS = 10;
 	private final int CODE_LENGTH = 4;
@@ -40,11 +40,20 @@ public class Game implements Serializable {
 	private List<KeyPeg[]> responses;
 
 	private boolean isGameOver;
-	private boolean gameIsWon;
+	private boolean isGameWon;
 
 	public Game() {
 		rand = new Random();
 		initializeGame();
+	}
+
+	private void initializeGame() {
+		turn = 0;
+		code = generateCode();
+		guesses = createGuessList();
+		responses = createResponseList();
+		isGameOver = false;
+		isGameWon = false;
 	}
 
 	private List<CodePeg[]> createGuessList() {
@@ -155,8 +164,52 @@ public class Game implements Serializable {
 	 * 
 	 * @return a list containing the current code
 	 */
-	public CodePeg[] getCode() {
-		return code;
+	public String[] getCode() {
+		String[] stringCode = new String[code.length];
+		for (int p = 0; p < code.length; p++) {
+			stringCode[p] = code[p].toString();
+		}
+		return stringCode;
+	}
+
+	// method to check if the passed peg is in the passed code
+	private boolean isPegInCode(CodePeg[] code, CodePeg peg) {
+		for (int x = 0; x < CODE_LENGTH; x++) {
+			if (code[x] != null && peg != null && code[x].equals(peg)) {
+				code[x] = null; // Set checked peg to null to ignore duplicates
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Makes guess based on the list of pegs
+	 * 
+	 * @param codePegs - String[] of codePegs the user wants to guess
+	 */
+	public void makeGuess(String[] codePegs) {
+		for (int i = 0; i < code.length; i++) {
+			getCurrentGuess()[i] = CodePeg.valueOf(codePegs[i]);
+		}
+		makeGuess();
+	}
+
+	/**
+	 * Submit the users current guess checking if the game has been won or is over.
+	 */
+	private void makeGuess() {
+		guesses.set(turn, getCurrentGuess().clone());
+		responses.set(turn, generateResponse());
+		if (Arrays.equals(this.code, getCurrentGuess())) {
+			isGameOver = true;
+			isGameWon = true;
+		}
+
+		turn++; // Increment turn count
+		if (turn >= TOTAL_TURNS) {
+			isGameOver = true;
+		}
 	}
 
 	/**
@@ -166,15 +219,6 @@ public class Game implements Serializable {
 	 */
 	public int getRemainingTurns() {
 		return TOTAL_TURNS - turn;
-	}
-
-	private void initializeGame() {
-		turn = 0;
-		code = generateCode();
-		guesses = createGuessList();
-		responses = createResponseList();
-		isGameOver = false;
-		gameIsWon = false;
 	}
 
 	/**
@@ -192,36 +236,7 @@ public class Game implements Serializable {
 	 * @return a boolean true if the game has been won false otherwise
 	 */
 	public boolean isGameWon() {
-		return gameIsWon;
-	}
-
-	// method to check if the passed peg is in the passed code
-	private boolean isPegInCode(CodePeg[] code, CodePeg peg) {
-		for (int x = 0; x < CODE_LENGTH; x++) {
-			if (code[x] != null && peg != null && code[x].equals(peg)) {
-				code[x] = null; // Set checked peg to null to ignore duplicates
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * A method that handles guessing and checking if the game has been won or is
-	 * over.
-	 */
-	public void makeGuess() {
-		guesses.set(turn, getCurrentGuess().clone());
-		responses.set(turn, generateResponse());
-		if (Arrays.equals(this.code, getCurrentGuess())) {
-			isGameOver = true;
-			gameIsWon = true;
-		}
-
-		turn++; // Increment turn count
-		if (turn >= TOTAL_TURNS) {
-			isGameOver = true;
-		}
+		return isGameWon;
 	}
 
 	/**
@@ -230,15 +245,4 @@ public class Game implements Serializable {
 	public void reset() {
 		initializeGame();
 	}
-
-	/**
-	 * Set a peg for the current guess
-	 * 
-	 * @param pos - the position of the peg to set
-	 * @param peg - the color to set this peg to
-	 */
-	public void setCodePeg(int pos, CodePeg peg) {
-		getCurrentGuess()[pos] = peg;
-	}
-
 }

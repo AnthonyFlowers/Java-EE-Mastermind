@@ -35,14 +35,11 @@ public class MakeGuessServlet extends HttpServlet {
 		String pegThree = request.getParameter("guessPegThree");
 		String pegFour = request.getParameter("guessPegFour");
 		Game g = (Game) request.getSession().getAttribute("game");
+		String[] codeGuess = new String[] { pegOne, pegTwo, pegThree, pegFour };
 		if (g.isGameOver()) {
 			request.setAttribute("gameOver", true);
-		} else if (isPegValid(pegOne) && isPegValid(pegTwo) && isPegValid(pegThree) && isPegValid(pegFour)) {
-			g.setCodePeg(0, CodePeg.valueOf(pegOne));
-			g.setCodePeg(1, CodePeg.valueOf(pegTwo));
-			g.setCodePeg(2, CodePeg.valueOf(pegThree));
-			g.setCodePeg(3, CodePeg.valueOf(pegFour));
-			g.makeGuess();
+		} else if (isValidCode(codeGuess)) {
+			g.makeGuess(codeGuess);
 		} else {
 			request.setAttribute("pegError", true);
 		}
@@ -56,6 +53,14 @@ public class MakeGuessServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
+	}
+
+	private boolean isValidCode(String[] code) {
+		for (String c : code) {
+			if (!isPegValid(c))
+				return false;
+		}
+		return true;
 	}
 
 	private boolean isPegValid(String peg) {
